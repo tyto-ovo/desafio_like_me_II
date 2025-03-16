@@ -12,4 +12,21 @@ const agregarRegistro = async (titulo, img, descripcion, likes) => {
   console.log("Registro agregado");
 };
 
-module.exports = { obtenerRegistros, agregarRegistro };
+const modificarRegistro = async (descripcion, id) => {
+  const consulta = "UPDATE posts SET descripcion = $1 WHERE if = $2";
+  const values = [descripcion, id];
+  const result = await pool.query(consulta, values);
+};
+
+const eliminarRegistro = async (id) => {
+  const consulta = "DELETE FROM posts WHERE id = $1";
+  const values = [id];
+  const result = await pool.query(consulta, id);
+};
+
+module.exports = {
+  obtenerRegistros,
+  agregarRegistro,
+  modificarRegistro,
+  eliminarRegistro,
+};
