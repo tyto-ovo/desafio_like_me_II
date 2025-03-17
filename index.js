@@ -26,9 +26,9 @@ app.get("/posts", async (res, req) => {
   try {
     const registros = await obtenerRegistros();
     res.json(registros);
-  } catch (error) {
-    console.error("Error al buscar los registros");
-    res.status(500).send(error);
+  } catch ({error, message}) {
+    console.error("Error al buscar los registros", error);
+    res.status(500).send(message);
   }
 });
 
@@ -38,9 +38,9 @@ app.post("/posts", async (req, res) => {
     const { titulo, img, descripcion, likes } = req.body;
     await agregarRegistros(titulo, img, descripcion, likes);
     res.send("Registro agregado con exito");
-  } catch (error) {
-    console.error("Error al agregar el registro");
-    res.status(500).send(error);
+  } catch ({error, message}) {
+    console.error("Error al agregar el registro", error);
+    res.status(500).send(message);
   }
 });
 
@@ -51,9 +51,9 @@ app.put("/posts/descripcion/:id", async (req, res) => {
     const { descripcion } = req.query;
     await modificarRegistro(descripcion, id);
     res.send("Descripcion de post modificado con éxito");
-  } catch (error) {
-    console.error("Error al modificar la descripcion");
-    res.status(500).send(error);
+  } catch ({error, message}) {
+    console.error("Error al modificar la descripcion", error);
+    res.status(500).send(message);
   }
 });
 
@@ -63,8 +63,8 @@ app.delete("/posts/:id", async (req, res) => {
     const { id } = req.params;
     await eliminarRegistro(id);
     res.send("Post eliminado con éxito");
-  } catch (error) {
-    console.error("No se pudo eliminar el post");
-    res.status(500).send(error);
+  } catch ({error, message}) {
+    console.error("No se pudo eliminar el post", error);
+    res.status(500).send(message);
   }
 });
